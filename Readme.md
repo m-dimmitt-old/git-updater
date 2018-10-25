@@ -4,7 +4,7 @@
 bupdate(){
   eval 'git pull $(git branch | grep '*' | cut -c 3-):$*'
 }
-alias bupdate='git branch | grep '*' | cut -c 3-'
+alias bupdate='git pull $(git branch | grep '*' | cut -c 3-):'
 ```
 
 ## Installation: 

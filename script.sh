@@ -1,4 +1,4 @@
-hp(){
+ghelp(){
   echo "commands are:
   gpm
   gpd

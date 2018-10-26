@@ -1,10 +1,12 @@
 ghelp(){
   echo "commands are:
-  gpm
-  gpd
-  gf
-  grevert
-  gcustom"
+  ghelp   - give help on these commands!
+  gpm     - git pull origin master:<yourbranch>
+  gpd     - git pull origin dev:<yourbranch>
+  gcustom - git pull origin custom:<yourbranch>
+  gfinish - git finish
+  grevert - git revert
+  gParentForkMaster - git pull parentForkRemote master:<yourbranch>"
 };
 
 ##

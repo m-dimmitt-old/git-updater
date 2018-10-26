@@ -6,13 +6,21 @@ ghelp(){
   gcustom - git pull origin custom:<yourbranch>
   gfinish - git finish
   grevert - git revert
-  gParentForkMaster - git pull parentForkRemote master:<yourbranch>"
+  gParentFork - git pull parentForkRemote master:<yourbranch>
+  gAllForks   - onetime - update all forks.
+  "
 };
 
 ##
 ## In the future this will allow remotes to be passed.
 ## Additionally forks will automatically get their parent project as a remote.
 ##
+gParentFork(){
+  html_url=$(curl -s 'https://api.github.com/repos/michaeldimmitt/gh' | \
+    python -c "import sys, json; print json.load(sys.stdin)['parent']['html_url']");
+  echo "git remote add forkName $html_url.git";
+
+}
 
 gpm(){ # git pull master:ToCurrentBranch via Temp
   git branch -D temp-copy;
@@ -24,14 +32,14 @@ gpm(){ # git pull master:ToCurrentBranch via Temp
 gpd(){ # git pull dev:ToCurrentBranch via Temp
   git branch -D temp-copy;
   git checkout -b temp-copy;
-  git pull origin dev:"$(git branch | grep '*' | cut -c 3-)";
+  git pull "${1:-origin}" dev:"$(git branch | grep '*' | cut -c 3-)";
   gprompt 'gfinish' 'grevert'
 };
 
 gcustom(){ # git pull custom:ToCurrentBranch via Temp
   git branch -D temp-copy;
   git checkout -b temp-copy;
-  git pull origin "$*":"$(git branch | grep '*' | cut -c 3-)";
+  git pull "${1:-origin}" "$*":"$(git branch | grep '*' | cut -c 3-)";
   gprompt 'gfinish' 'grevert'
 };
 
